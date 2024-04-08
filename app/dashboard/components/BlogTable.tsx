@@ -1,8 +1,9 @@
-
+import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import { EyeOpenIcon } from '@radix-ui/react-icons';
 import { EditIcon, TrashIcon } from 'lucide-react';
-import React from 'react';
+
 
 export default function BlogTable() {
 
@@ -18,8 +19,8 @@ export default function BlogTable() {
 
                 <div className='grid grid-cols-5 p-5'>
                     <h1 className='col-span-2'>Blog Title</h1>
-                    <h1 className=''>Blog Title</h1>
-                    <h1 className=''>Blog Title</h1>
+                    <Switch checked={false} />
+                    <Switch checked={true} />
                     <Actions />
                 </div>
 
