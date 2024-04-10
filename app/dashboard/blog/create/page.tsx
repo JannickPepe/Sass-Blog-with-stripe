@@ -14,6 +14,9 @@ import { Switch } from "@/components/ui/switch";
 import { RocketIcon } from "lucide-react";
 import { BsSave } from "react-icons/bs";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { Textarea } from "@/components/ui/textarea";
+import MarkdownPreview from "@/components/markdown/MarkdownPreview";
 
 
 // Form Schema
@@ -27,7 +30,17 @@ const FormSchema = z.object({
     }),
     is_published: z.boolean(),
     is_premium: z.boolean(),
-})
+    // for localhost url onto image input
+}).refine((data) => {
+    const image_url = data.image_url
+    try {
+        const url = new URL(image_url)
+
+        return url.hostname === "i.ibb.co"
+    } catch {
+        return false
+    }
+}, {message: "Currently we are supported only with unsplash and ibb with images!", path: ["image_url"]});
 
 
 export default function BlogForm() {
@@ -62,12 +75,14 @@ export default function BlogForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full border rounded-md space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full border rounded-md space-y-6 pb-6">
 
-                <div className="p-5 flex items-center flex-wrap justify-between border-b">
+                <div className="p-5 gap-5 flex items-center flex-wrap justify-between border-b">
 
-                    <div className="flex gap-5 items-center">
-                        <span role="button" tabIndex={0} onClick={() => setPreview(!isPreview)} className="flex items-center gap-1 border bg-zinc-700 p-2 rounded-md hover:ring-2 hover:ring-zinc-400 transition-all">
+                    <div className="flex gap-5 items-center flex-wrap">
+                        {/* our setPreview will not be able to show preview if image url is invalid */}
+                        <span role="button" tabIndex={0} onClick={() => setPreview(!isPreview && !form.getFieldState("image_url").invalid)} 
+                            className="flex items-center gap-1 border bg-zinc-700 p-2 rounded-md hover:ring-2 hover:ring-zinc-400 transition-all">
                             {isPreview ? (
                                 <>
                                     <Pencil1Icon />
@@ -121,9 +136,9 @@ export default function BlogForm() {
                 </div>
 
                 <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
                     <FormItem>
                         <FormControl>
                             <div className={cn("w-full p-2 flex break-words gap-2", isPreview ? "divide-x-0" : "divide-x")}>
@@ -140,20 +155,53 @@ export default function BlogForm() {
                 />
 
                 <FormField
-                control={form.control}
-                name="image_url"
-                render={({ field }) => (
+                    control={form.control}
+                    name="image_url"
+                    render={({ field }) => (
                     <FormItem>
                         <FormControl>
                             <div className={cn("w-full p-2 flex break-words gap-2", isPreview ? "divide-x-0" : "divide-x")}>
                                 <Input placeholder="image url" {...field} className={cn("border-none text-lg font-medium leading-relaxed", isPreview ? "w-0 p-0" : "w-full lg:w-1/2")} />
+
                                 <div className={cn("lg:px-10", isPreview ? "mx-auto w-full lg:w-4/5" : "w-1/2 lg:block hidden")}>
-                                    <h1 className="text-3xl font-medium">{form.getValues().title}</h1>
+                                    {!isPreview ? (
+                                        <>
+                                            <p>Click on preivew to see image</p>
+                                        </>
+                                    ) : (
+                                        <div className="relative h-80 mt-5 border rounded-md">
+                                            <Image src={form.getValues().image_url} alt="preview" fill className="object-cover object-center rounded-md" />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </FormControl>
-                        {form.getFieldState("title").invalid && form.getValues().title && <FormMessage />}
-                        <FormMessage />
+
+                        {form.getFieldState("image_url").invalid && form.getValues().image_url && (
+                            <div className="p-2">
+                                <FormMessage />
+                            </div>
+                        )}
+                    </FormItem>
+                )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="content"
+                    render={({ field }) => (
+                    <FormItem>
+                        <FormControl>
+                            <div className={cn("w-full p-2 flex break-words gap-2", isPreview ? "divide-x-0" : "divide-x h-70vh")}>
+                                <Textarea placeholder="content" {...field} className={cn("border-none text-lg font-medium leading-relaxed resize-none h-full", isPreview ? "w-0 p-0" : "w-full lg:w-1/2")} />
+
+                                <div className={cn("overflow-y-auto", isPreview ? "mx-auto w-full lg:w-4/5" : "w-1/2 lg:block hidden")}>
+                                    <MarkdownPreview content= {form.getValues().content} />
+                                </div>
+                            </div>
+                        </FormControl>
+
+                        {form.getFieldState("content").invalid && form.getValues().content && <FormMessage />}
                     </FormItem>
                 )}
                 />
