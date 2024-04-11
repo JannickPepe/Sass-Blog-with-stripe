@@ -3,9 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { EyeOpenIcon } from '@radix-ui/react-icons';
 import { EditIcon, TrashIcon } from 'lucide-react';
+import { readBlog } from '@/lib/actions/blog';
 
 
-export default function BlogTable() {
+export default async function BlogTable() {
+
+    // Setup your const so it can have the data from blogs and show the after the await
+    const {data: blogs} = await readBlog();
 
     return (
         <div className='overflow-x-auto'>
@@ -17,12 +21,14 @@ export default function BlogTable() {
                     <h1 className=''>Public</h1>
                 </div>
 
-                <div className='grid grid-cols-5 p-5'>
-                    <h1 className='col-span-2'>Blog Title</h1>
-                    <Switch checked={false} />
-                    <Switch checked={true} />
+                {blogs?.map((blog, index) => {
+                    return  <div className='grid grid-cols-5 p-5' key={index}>
+                    <h1 className='col-span-2'>{blog.title}</h1>
+                    <Switch checked={blog.is_premium} />
+                    <Switch checked={blog.is_published} />
                     <Actions />
                 </div>
+                })}
 
             </div>
         </div>
