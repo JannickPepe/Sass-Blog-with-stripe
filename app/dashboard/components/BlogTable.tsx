@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
 import { EyeOpenIcon } from '@radix-ui/react-icons';
 import { EditIcon, } from 'lucide-react';
-import { readBlog } from '@/lib/actions/blog';
+import { readBlog, updateBlogById } from '@/lib/actions/blog';
 import DeleteAlert from './DeleteAlert';
+import SwitchForm from './SwitchForm';
+import { BlogFormSchemaType } from '../schema';
 
 
 export default async function BlogTable() {
@@ -23,13 +24,19 @@ export default async function BlogTable() {
                 </div>
 
                 {blogs?.map((blog, index) => {
-                    return  <div className='grid grid-cols-5 p-5' key={index}>
-                    <h1 className='col-span-2'>{blog.title}</h1>
-                    <Switch checked={blog.is_premium} />
-                    <Switch checked={blog.is_published} />
-                    {/* place id here since we use it in const Actions and have id onto blog id for selected one */}
-                    <Actions id={blog.id} /> 
-                </div>
+
+                    const updatePremium = updateBlogById.bind(null, blog.id, {is_premium:!blog.is_premium} as BlogFormSchemaType)
+                    const updatePublish = updateBlogById.bind(null, blog.id, {is_published:!blog.is_published} as BlogFormSchemaType)
+
+                    return  (
+                        <div className='grid grid-cols-5 p-5' key={index}>
+                            <h1 className='col-span-2'>{blog.title}</h1>
+                            <SwitchForm checked={blog.is_premium} name='premium' onToggle={updatePremium} />
+                            <SwitchForm checked={blog.is_published} name='publish' onToggle={updatePublish} />
+                            {/* place id here since we use it in const Actions and have id onto blog id for selected one */}
+                            <Actions id={blog.id} /> 
+                        </div> 
+                    )
                 })}
 
             </div>

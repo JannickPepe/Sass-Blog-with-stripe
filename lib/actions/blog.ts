@@ -59,3 +59,13 @@ export async function deleteBlogById(blogId:string) {
     revalidatePath(DASHBOARD);
     return JSON.stringify(result);
 };
+
+// TOGGLE UPDATE
+export async function updateBlogById(blogId:string, data:BlogFormSchemaType,) {
+    const result = await supabase
+        .from("blog")
+        .update(data)
+        .eq("id", blogId);
+    revalidatePath(DASHBOARD);
+    return JSON.stringify(result);
+};
