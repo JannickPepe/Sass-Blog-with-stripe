@@ -4,8 +4,12 @@ import { BlogFormSchemaType } from "@/app/dashboard/schema";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { Database } from "../types/supabase";
+import { revalidatePath } from "next/cache";
 
 const cookieStore = cookies();
+
+const DASHBOARD = "/dashboard";
+
 const supabase = createServerClient<Database>(
 
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -44,4 +48,14 @@ export async function readBlog() {
         .from("blog")
         .select("*")
         .order("created_at", {ascending: true})
+};
+
+// DELETE BLOG
+export async function deleteBlogById(blogId:string) {
+    const result = await supabase
+        .from("blog")
+        .delete()
+        .eq("id", blogId);
+    revalidatePath(DASHBOARD);
+    return JSON.stringify(result);
 };

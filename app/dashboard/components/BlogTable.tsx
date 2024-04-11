@@ -2,8 +2,9 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { EyeOpenIcon } from '@radix-ui/react-icons';
-import { EditIcon, TrashIcon } from 'lucide-react';
+import { EditIcon, } from 'lucide-react';
 import { readBlog } from '@/lib/actions/blog';
+import DeleteAlert from './DeleteAlert';
 
 
 export default async function BlogTable() {
@@ -26,7 +27,8 @@ export default async function BlogTable() {
                     <h1 className='col-span-2'>{blog.title}</h1>
                     <Switch checked={blog.is_premium} />
                     <Switch checked={blog.is_published} />
-                    <Actions />
+                    {/* place id here since we use it in const Actions and have id onto blog id for selected one */}
+                    <Actions id={blog.id} /> 
                 </div>
                 })}
 
@@ -36,12 +38,13 @@ export default async function BlogTable() {
 
 };
 
-const Actions = () => {
+// OUR CTA CRUD - place the id as paramter since we use it in our DeleteAlert ect
+const Actions = ({id} : {id:string;}) => {
 
     return (
         <div className='flex items-center gap-3 flex-wrap'>
             <Button variant="outline" className='flex items-center gap-2'><EyeOpenIcon /> View</Button>
-            <Button variant="outline" className='flex items-center gap-2'><TrashIcon /> Delete</Button>
+            <DeleteAlert blogId={id} />
             <Button variant="outline" className='flex items-center gap-2'><EditIcon /> Edit</Button>
         </div>
     );
