@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { EyeOpenIcon } from '@radix-ui/react-icons';
 import { EditIcon, } from 'lucide-react';
-import { readBlog, updateBlogById } from '@/lib/actions/blog';
+import { readBlogAdmin, updateBlogById } from '@/lib/actions/blog';
 import DeleteAlert from './DeleteAlert';
 import SwitchForm from './SwitchForm';
 import { BlogFormSchemaType } from '../schema';
@@ -12,7 +12,7 @@ import Link from 'next/link';
 export default async function BlogTable() {
 
     // Setup your const so it can have the data from blogs and show the after the await
-    const {data: blogs} = await readBlog();
+    const {data: blogs} = await readBlogAdmin();
 
     return (
         <div className='overflow-x-auto'>
@@ -21,7 +21,7 @@ export default async function BlogTable() {
                 <div className='grid grid-cols-5 p-5 text-gray-500 border-b'>
                     <h1 className='col-span-2'>Title</h1>
                     <h1 className=''>Premium</h1>
-                    <h1 className=''>Public</h1>
+                    <h1 className=''>Publish</h1>
                 </div>
 
                 {blogs?.map((blog, index) => {
@@ -50,7 +50,7 @@ export default async function BlogTable() {
 const Actions = ({id} : {id:string;}) => {
 
     return (
-        <div className='flex items-center gap-3 flex-wrap'>
+        <div className='flex items-center gap-2 flex-wrap md:flex-row'>
             <Button variant="outline" className='flex items-center gap-2'><EyeOpenIcon /> View</Button>
 
             <DeleteAlert blogId={id} />

@@ -40,7 +40,19 @@ export async function readBlog() {
     return supabase
         .from("blog")
         .select("*")
-        .order("created_at", {ascending: true})
+        .eq("is_published", true)
+        .order("created_at", {ascending: true});
+};
+
+// READ BLOG ADMIN WHEN NOT PUBLISHED ECT
+export async function readBlogAdmin() {
+
+    const supabase = await createSupabaseServerClient();
+
+    return supabase
+        .from("blog")
+        .select("*")
+        .order("created_at", {ascending: true});
 };
 
 // DELETE BLOG
@@ -101,3 +113,4 @@ export async function updateBlogDetailById(blogId:string, data:BlogFormSchemaTyp
     }
     
 };
+
