@@ -6,6 +6,7 @@ import { readBlog, updateBlogById } from '@/lib/actions/blog';
 import DeleteAlert from './DeleteAlert';
 import SwitchForm from './SwitchForm';
 import { BlogFormSchemaType } from '../schema';
+import Link from 'next/link';
 
 
 export default async function BlogTable() {
@@ -51,8 +52,12 @@ const Actions = ({id} : {id:string;}) => {
     return (
         <div className='flex items-center gap-3 flex-wrap'>
             <Button variant="outline" className='flex items-center gap-2'><EyeOpenIcon /> View</Button>
+
             <DeleteAlert blogId={id} />
-            <Button variant="outline" className='flex items-center gap-2'><EditIcon /> Edit</Button>
+            
+            <Link href={"/dashboard/blog/edit/" + id}>
+                <Button variant="outline" className='flex items-center gap-2'><EditIcon /> Edit</Button>
+            </Link>
         </div>
     );
 

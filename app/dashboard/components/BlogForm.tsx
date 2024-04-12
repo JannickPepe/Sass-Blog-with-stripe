@@ -16,10 +16,11 @@ import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import MarkdownPreview from "@/components/markdown/MarkdownPreview";
 import { BlogFormSchema, BlogFormSchemaType } from "../schema";
+import { IBlogDetail } from "@/lib/types";
 
 
-
-export default function BlogForm({onHandleSubmit} : {onHandleSubmit:(data: BlogFormSchemaType) => void}) {
+export default function BlogForm({onHandleSubmit, blog} : {onHandleSubmit: (data: BlogFormSchemaType) => void; blog?: IBlogDetail;
+}) {
 
     // UI transition when saving a Blog to SupaBase
     const [isPending, startTransition] = useTransition();
@@ -32,11 +33,11 @@ export default function BlogForm({onHandleSubmit} : {onHandleSubmit:(data: BlogF
         mode: "all",
         resolver: zodResolver(BlogFormSchema),
         defaultValues: {
-        title: "",
-        content: "",
-        image_url: "",
-        is_premium: false,
-        is_published: true,
+        title: blog?.title || "",
+        content: blog?.blog_content?.content || "",
+        image_url: blog?.image_url || "",
+        is_premium: blog?.is_premium || false,
+        is_published: blog?.is_published || true,
         },
     });
 

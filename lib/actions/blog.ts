@@ -1,31 +1,17 @@
 'use server';
 
 import { BlogFormSchemaType } from "@/app/dashboard/schema";
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
-import { Database } from "../types/supabase";
 import { revalidatePath } from "next/cache";
+import { createSupabaseServerClient } from "../supabase";
 
-const cookieStore = cookies();
 
 const DASHBOARD = "/dashboard";
 
-const supabase = createServerClient<Database>(
-
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-        cookies: {
-            get(name: string) {
-                return cookieStore.get(name)?.value;
-            },
-        },
-    }
-
-);
 
 // CREATE BLOG
 export async function createBlog(data: BlogFormSchemaType) {
+
+    const supabase = await createSupabaseServerClient();
 
     // our Foreignkey hook up 
     const {["content"]:excludedKey, ...blog} = data;
@@ -33,9 +19,13 @@ export async function createBlog(data: BlogFormSchemaType) {
     const resultBlog = await supabase.from("blog").insert(blog).select("id").single();
 
     if(resultBlog.error) {
+        
         return JSON.stringify(resultBlog)
+
     } else {
         const result = await supabase.from("blog_content").insert({blog_id:resultBlog.data.id!, content:data.content})
+
+        revalidatePath(DASHBOARD);
 
         return JSON.stringify(result);
     };
@@ -44,6 +34,9 @@ export async function createBlog(data: BlogFormSchemaType) {
 
 // READ BLOG
 export async function readBlog() {
+
+    const supabase = await createSupabaseServerClient();
+
     return supabase
         .from("blog")
         .select("*")
@@ -52,6 +45,9 @@ export async function readBlog() {
 
 // DELETE BLOG
 export async function deleteBlogById(blogId:string) {
+
+    const supabase = await createSupabaseServerClient();
+
     const result = await supabase
         .from("blog")
         .delete()
@@ -62,10 +58,46 @@ export async function deleteBlogById(blogId:string) {
 
 // TOGGLE UPDATE
 export async function updateBlogById(blogId:string, data:BlogFormSchemaType,) {
+
+    const supabase = await createSupabaseServerClient();
+
     const result = await supabase
         .from("blog")
         .update(data)
         .eq("id", blogId);
     revalidatePath(DASHBOARD);
     return JSON.stringify(result);
+};
+
+// READ ID BLOG
+export async function readBlogContentById(blogId:string) {
+
+    const supabase = await createSupabaseServerClient();
+
+    return supabase
+        .from("blog")
+        .select("*, blog_content(*)")
+        .eq("id", blogId)
+        .single();
+};
+
+// READ DETAIL ID BLOG
+export async function updateBlogDetailById(blogId:string, data:BlogFormSchemaType,) {
+
+    const supabase = await createSupabaseServerClient();
+
+    // our Foreignkey hook up 
+    const {["content"]:excludedKey, ...blog} = data;
+
+    const resultBlog = await supabase.from("blog").update(blog).eq("id", blogId);
+    
+    if(resultBlog.error) {
+        return JSON.stringify(resultBlog)
+    } else {
+        const result = await supabase.from("blog_content").update({content: data.content}).eq("blog_id", blogId);
+
+        revalidatePath(DASHBOARD);
+        return JSON.stringify(result);
+    }
+    
 };
