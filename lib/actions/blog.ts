@@ -34,7 +34,6 @@ export async function createBlog(data: BlogFormSchemaType) {
 
 // READ BLOG
 export async function readBlog() {
-
     const supabase = await createSupabaseServerClient();
 
     return supabase
@@ -46,7 +45,6 @@ export async function readBlog() {
 
 // READ BLOG ADMIN WHEN NOT PUBLISHED ECT
 export async function readBlogAdmin() {
-
     const supabase = await createSupabaseServerClient();
 
     return supabase
@@ -57,33 +55,36 @@ export async function readBlogAdmin() {
 
 // DELETE BLOG
 export async function deleteBlogById(blogId:string) {
-
     const supabase = await createSupabaseServerClient();
 
     const result = await supabase
         .from("blog")
         .delete()
         .eq("id", blogId);
+
     revalidatePath(DASHBOARD);
+    revalidatePath("/blog/" + blogId);
+
     return JSON.stringify(result);
 };
 
-// TOGGLE UPDATE
+// UPDATE BLOG WITH TOGGLE
 export async function updateBlogById(blogId:string, data:BlogFormSchemaType,) {
-
     const supabase = await createSupabaseServerClient();
 
     const result = await supabase
         .from("blog")
         .update(data)
         .eq("id", blogId);
+
     revalidatePath(DASHBOARD);
+    revalidatePath("/blog/" + blogId);
+
     return JSON.stringify(result);
 };
 
 // READ ID BLOG
 export async function readBlogContentById(blogId:string) {
-
     const supabase = await createSupabaseServerClient();
 
     return supabase
@@ -93,9 +94,8 @@ export async function readBlogContentById(blogId:string) {
         .single();
 };
 
-// READ DETAIL ID BLOG
+// UPDATE DETAIL ID BLOG
 export async function updateBlogDetailById(blogId:string, data:BlogFormSchemaType,) {
-
     const supabase = await createSupabaseServerClient();
 
     // our Foreignkey hook up 
@@ -109,6 +109,7 @@ export async function updateBlogDetailById(blogId:string, data:BlogFormSchemaTyp
         const result = await supabase.from("blog_content").update({content: data.content}).eq("blog_id", blogId);
 
         revalidatePath(DASHBOARD);
+        revalidatePath("/blog/" + blogId);
         return JSON.stringify(result);
     }
     
