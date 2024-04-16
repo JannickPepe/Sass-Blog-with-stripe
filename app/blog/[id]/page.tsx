@@ -3,7 +3,7 @@ import { IBlog } from '@/lib/types';
 import Image from 'next/image';
 import BlogContent from './components/BlogContent';
 
-/*
+
 // FOR STATIC PARAMS
 export async function generateStaticParams() {
 
@@ -35,7 +35,7 @@ export async function generateMetadata({ params } : { params:{id:string} }) {
 
 };
 
-*/
+
 
 // OUR MAIN FUNC
 export default async function page({ params } : { params:{id:string} }) {
