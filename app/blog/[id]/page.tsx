@@ -3,7 +3,41 @@ import { IBlog } from '@/lib/types';
 import Image from 'next/image';
 import BlogContent from './components/BlogContent';
 
+/*
+// FOR STATIC PARAMS
+export async function generateStaticParams() {
 
+    const { data:blog } = await fetch(process.env.SITE_URL + "/api/blog?id=" + "*").then((res) => res.json());
+
+    return blog;
+
+};
+
+// FOR SEO
+export async function generateMetadata({ params } : { params:{id:string} }) {
+
+    const { data:blog } = await fetch(process.env.SITE_URL + "/api/blog?id=" + params.id).then((res) => res.json()) as { data: IBlog };
+
+    return {
+        title:blog?.title,
+        authors: {
+            name: "Tell Me a Story",
+        },
+        openGraph: {
+            title:blog?.title,
+            url:process.env.SITE_URL + "/blog/" + params.id,
+            siteName: "TMS",
+            images:blog?.image_url,
+            type:"website",
+        },
+        keywords: ["TMS", "Tell Me a Story", "Jannick Pedersen", "Jeffrey O'Rielly", "Blogs", "Online blogs", "Blog app"],
+    }
+
+};
+
+*/
+
+// OUR MAIN FUNC
 export default async function page({ params } : { params:{id:string} }) {
 
     const { data:blog } = await fetch(process.env.SITE_URL + "/api/blog?id=" + params.id).then((res) => res.json()) as { data: IBlog };
