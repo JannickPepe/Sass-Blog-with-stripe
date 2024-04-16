@@ -5,7 +5,7 @@ import {GitHubLogoIcon, LinkedInLogoIcon, DiscordLogoIcon,} from "@radix-ui/reac
 export default function Footer() {
 
 	return (
-		<footer className=" border-t py-10">
+		<footer className=" border-t py-10 mt-10">
 			<div className="max-w-7xl py-10 px-5 md:p-0 space-y-5  mx-auto flex justify-between md:items-end flex-col md:flex-row">
 				<div className="space-y-10">
 					<div className="space-y-2 w-full sm:w-96">
