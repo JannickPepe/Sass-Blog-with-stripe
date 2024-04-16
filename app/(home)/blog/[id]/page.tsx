@@ -7,7 +7,7 @@ import BlogContent from './components/BlogContent';
 // FOR STATIC PARAMS
 export async function generateStaticParams() {
 
-    const { data:blog } = await fetch(process.env.SITE_URL + "/api/blog?id=" + "*").then((res) => res.json());
+    const { data:blog } = await fetch(process.env.PROD_URL + "/api/blog?id=" + "*").then((res) => res.json());
 
     return blog;
 
@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 // FOR SEO
 export async function generateMetadata({ params } : { params:{id:string} }) {
 
-    const { data:blog } = await fetch(process.env.SITE_URL + "/api/blog?id=" + params.id).then((res) => res.json()) as { data: IBlog };
+    const { data:blog } = await fetch(process.env.PROD_URL + "/api/blog?id=" + params.id).then((res) => res.json()) as { data: IBlog };
 
     return {
         title:blog?.title,
@@ -25,12 +25,12 @@ export async function generateMetadata({ params } : { params:{id:string} }) {
         },
         openGraph: {
             title:blog?.title,
-            url:process.env.SITE_URL + "/blog/" + params.id,
-            siteName: "TMS",
+            url:process.env.PROD_URL + "/blog/" + params.id,
+            siteName: "TMS Blog",
             images:blog?.image_url,
             type:"website",
         },
-        keywords: ["TMS", "Tell Me a Story", "Jannick Pedersen", "Jeffrey O'Rielly", "Blogs", "Online blogs", "Blog app"],
+        keywords: ["TMS", "TMS Blog", "Tell Me a Story", "Jannick Pedersen", "Jeffrey O'Rielly", "Blogs", "Online blogs", "Blog app"],
     }
 
 };
@@ -40,7 +40,7 @@ export async function generateMetadata({ params } : { params:{id:string} }) {
 // OUR MAIN FUNC
 export default async function page({ params } : { params:{id:string} }) {
 
-    const { data:blog } = await fetch(process.env.SITE_URL + "/api/blog?id=" + params.id).then((res) => res.json()) as { data: IBlog };
+    const { data:blog } = await fetch(process.env.PROD_URL + "/api/blog?id=" + params.id).then((res) => res.json()) as { data: IBlog };
 
     if(!blog?.id) {
         return <h1>Blog not published!!</h1>
