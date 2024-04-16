@@ -1,9 +1,12 @@
 "use client";
+
 import React, { useEffect, useState } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
 import { Database } from '@/lib/types/supabase';
 import MarkdownPreview from '@/components/markdown/MarkdownPreview';
 import BlogLoading from './BlogLoading';
+import Checkout from '@/components/stripe/Checkout';
+
 
 export default function BlogContent({blogId} : {blogId:string}) {
 
@@ -45,6 +48,11 @@ export default function BlogContent({blogId} : {blogId:string}) {
     //
     if(isLoading) {
         return <BlogLoading />
+    };
+
+    //
+    if(!blog?.content) {
+        return <Checkout />
     };
 
 

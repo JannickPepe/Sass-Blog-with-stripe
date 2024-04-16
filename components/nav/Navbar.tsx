@@ -24,7 +24,7 @@ export default function Navbar() {
                 MENU
             </div>
             <div className='flex items-center justify-center gap-4'>
-                {user ? <Profile /> : <LoginForm />}
+                {user?.id ? <Profile /> : <LoginForm />}
                 <ModeToggle />
             </div>
         </nav>
