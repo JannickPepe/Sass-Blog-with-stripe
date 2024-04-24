@@ -66,10 +66,10 @@ const EXIT_KEYFRAMES = {
   right: [NO_CLIP, BOTTOM_LEFT_CLIP],
 };
 
-const LinkBox = ({ Icon, href }: {Icon:any, href:any}) => {
+const LinkBox = ({ Icon, href }) => {
   const [scope, animate] = useAnimate();
 
-  const getNearestSide = (e:any) => {
+  const getNearestSide = (e) => {
     const box = e.target.getBoundingClientRect();
 
     const proximityToLeft = {
@@ -99,7 +99,7 @@ const LinkBox = ({ Icon, href }: {Icon:any, href:any}) => {
     return sortedProximity[0].side;
   };
 
-  const handleMouseEnter = (e:any) => {
+  const handleMouseEnter = (e) => {
     const side = getNearestSide(e);
 
     animate(scope.current, {
@@ -107,7 +107,7 @@ const LinkBox = ({ Icon, href }: {Icon:any, href:any}) => {
     });
   };
 
-  const handleMouseLeave = (e:any) => {
+  const handleMouseLeave = (e) => {
     const side = getNearestSide(e);
 
     animate(scope.current, {
