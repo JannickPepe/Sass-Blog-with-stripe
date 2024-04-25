@@ -4,11 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { Genres } from "../../components/Genres"
 import { About } from "@/components/About";
+import { MdOutlineLogin } from "react-icons/md";
+import { IoIosArrowDropdownCircle } from "react-icons/io";
+
 
 export default async function Home() {
   
   const { data: blogs } = await readBlog();
-
 
   return (
 
@@ -19,10 +21,19 @@ export default async function Home() {
         <br/>Which will give you access to the <span className="border-b border-green-600">best content</span>. 
       </h2>
 
-      <div className="mx-auto grid max-w-[900px] min-h-[100px] place-content-center mt-6 bg-slate-900 p-4 mb-20 rounded-md hover:cursor-pointer">
-        <DrawOutlineButton>Sign In To Access Premium Blogs</DrawOutlineButton>
+      <div className="mx-auto text-center grid max-w-[900px] min-h-[100px] place-content-center mt-6 bg-slate-900 p-4 mb-16 rounded-md hover:cursor-pointer">
+        <DrawOutlineButton>
+          <div className="flex items-center gap-2">
+            Sign In To Access Premium Blogs <MdOutlineLogin className="text-green-600" size={26}/>
+          </div>
+        </DrawOutlineButton>
       </div>
 
+      <div className="flex justify-center">
+        <IoIosArrowDropdownCircle className="h-5 w-5 lg:h-10 lg:w-10 animate-animation-ping"/>
+      </div>
+
+      <h3 className="text-sm text-center font-semibold text-gray-400 pt-4 lg:pt-14">Our Whole Blog Catelog</h3>
       <h2 className="text-center text-3xl font-semibold mb-4">The Blogs</h2>
       <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5 p-5 xl:p-0">
         {blogs?.map((blog, index) => {
@@ -42,7 +53,8 @@ export default async function Home() {
         })}
       </div>
       
-      <h2 className="text-2xl font-bold text-center mt-20">Blog Categories</h2>
+      <h3 className="text-sm text-center font-semibold text-gray-400 mt-20">Discory Our Varity of Selections</h3>
+      <h2 className="text-2xl font-bold text-center">Blog Categories</h2>
       <Genres />
 
       <About />

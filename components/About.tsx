@@ -3,17 +3,24 @@
 import React, { useState } from "react";
 import useMeasure from "react-use-measure";
 import {useDragControls, useMotionValue, useAnimate, motion, } from "framer-motion";
+import { MdOutlineArrowRightAlt } from "react-icons/md";
 
 export const About = () => {
 
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="grid place-content-center justify-center mt-16 mb-20">
-      <div onClick={() => setOpen(true)} className="rounded bg-green-700 px-6 py-4 text-white transition-colors hover:bg-green-600 hover:cursor-pointer" >
-        <h3 className="text-center text-3xl font-bold">About</h3>
-        <h4 className="text-center text-2xl semi-bold">Tell Me a Story</h4>
-      </div>
+    <div className="mt-16 mb-20">
+
+      <div className="flex mx-auto justify-center bg-green-700 hover:bg-green-600 max-w-[800px] rounded-md">
+        <div onClick={() => setOpen(true)} className="rounded space-y-2 px-6 py-6 text-white transition-colors hover:cursor-pointer" >
+          <h3 className="text-center text-3xl font-bold">Want To Know More <span className="border-b-2 border-slate-800">About Us?</span></h3>
+          <div className="flex items-center justify-center gap-1 hover:scale-110 transition delay-200 duration-300">
+            <h4 className="text-center text-2xl semi-bold">Tell Me a Story Journey</h4>
+            <MdOutlineArrowRightAlt size={30} />
+          </div>
+        </div>
+      </div> 
 
       <DragCloseDrawer open={open} setOpen={setOpen}>
         <div className="mx-auto max-w-2xl space-y-4 text-neutral-400">
