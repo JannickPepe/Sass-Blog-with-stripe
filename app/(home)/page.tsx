@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Genres } from "../../components/Genres"
 import { About } from "@/components/About";
-import { MdOutlineLogin } from "react-icons/md";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
+import LoginFormHero from "@/components/LoginFormHero";
 
 
 export default async function Home() {
@@ -21,13 +21,7 @@ export default async function Home() {
         <br/>Which will give you access to the <span className="border-b border-green-600">best content</span>. 
       </h2>
 
-      <div className="mx-auto text-center grid max-w-[900px] min-h-[100px] place-content-center mt-6 bg-slate-900 p-4 mb-16 rounded-md hover:cursor-pointer">
-        <DrawOutlineButton>
-          <div className="flex items-center gap-2">
-            Sign In To Access Premium Blogs <MdOutlineLogin className="text-green-600" size={26}/>
-          </div>
-        </DrawOutlineButton>
-      </div>
+      <LoginFormHero />
 
       <div className="flex justify-center">
         <IoIosArrowDropdownCircle className="h-5 w-5 lg:h-10 lg:w-10 animate-animation-ping"/>
@@ -54,7 +48,7 @@ export default async function Home() {
       </div>
       
       <h3 className="text-sm text-center font-semibold text-gray-400 mt-20">Discory Our Varity of Selections</h3>
-      <h2 className="text-2xl font-bold text-center">Blog Categories</h2>
+      <h2 className="text-3xl font-bold text-center">Blog Categories</h2>
       <Genres />
 
       <About />
@@ -63,27 +57,4 @@ export default async function Home() {
 
   );
 
-};
-
-const DrawOutlineButton = ({ children, ...rest }: {children:any}) => {
-  return (
-    <div
-      {...rest}
-      className="text-2xl group relative px-4 py-2 font-medium text-slate-100 transition-colors duration-[400ms] hover:text-indigo-300"
-    >
-      <span>{children}</span>
-
-      {/* TOP */}
-      <span className="absolute left-0 top-0 h-[2px] w-0 bg-indigo-300 transition-all duration-100 group-hover:w-full" />
-
-      {/* RIGHT */}
-      <span className="absolute right-0 top-0 h-0 w-[2px] bg-indigo-300 transition-all delay-100 duration-100 group-hover:h-full" />
-
-      {/* BOTTOM */}
-      <span className="absolute bottom-0 right-0 h-[2px] w-0 bg-indigo-300 transition-all delay-200 duration-100 group-hover:w-full" />
-
-      {/* LEFT */}
-      <span className="absolute bottom-0 left-0 h-0 w-[2px] bg-indigo-300 transition-all delay-300 duration-100 group-hover:h-full" />
-    </div>
-  );
 };
