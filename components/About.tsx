@@ -16,7 +16,7 @@ export const About = () => {
         <div onClick={() => setOpen(true)} className="rounded space-y-2 px-6 py-6 text-white hover:text-slate-700 transition-colors hover:cursor-pointer" >
           <h3 className="text-center text-3xl font-bold">Want To Know More <span className="border-b-2 border-slate-800">About Us?</span></h3>
           <div className="hover:scale-110 transition delay-200 duration-300">
-            <h4 className="text-center text-2xl semi-bold text-slate-800 flex items-center justify-center gap-1">Tell Me a Story Journey  <MdOutlineArrowRightAlt size={30} /></h4>
+            <h4 className="text-center text-base md:text-2xl semi-bold text-slate-800 flex items-center justify-center gap-1">Tell Me a Story Journey<MdOutlineArrowRightAlt size={30} /></h4>
           </div>
         </div>
       </div> 

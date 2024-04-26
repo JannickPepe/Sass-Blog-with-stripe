@@ -27,7 +27,7 @@ export default function LoginFormHero() {
         <div className="mx-auto text-center grid max-w-[900px] min-h-[100px] place-content-center mt-6 bg-slate-900 p-4 mb-16 rounded-md hover:cursor-pointer">
             <DrawOutlineButton>
                 <button className="flex items-center gap-2" onClick={handleLogin}>
-                    Sign In To Access Premium Blogs <MdOutlineLogin className="text-green-600" size={26}/>
+                    Sign In To Access Premium Blogs <MdOutlineLogin className="text-green-600 h-7 w-7"/>
                 </button>
             </DrawOutlineButton>
         </div>

@@ -16,7 +16,7 @@ export default function Navbar() {
     return (
         <nav className='flex justify-between'>
             <div className='group'>
-                <Link href='/' className='text-base md:text-2xl font-bold'>
+                <Link href='/' className='text-base md:text-2xl font-semibold md:font-bold'>
                     TMS
                 </Link>
                 <div className='h-1 w-0 group-hover:w-full transition-all bg-green-500 '></div>

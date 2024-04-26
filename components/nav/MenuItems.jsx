@@ -63,7 +63,7 @@ const Tab = ({ children, tab, handleSetSelected, selected }) => {
         className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors ${
             selected === tab
             ? " bg-neutral-800 text-neutral-100"
-            : "text-neutral-400"
+            : "text-white"
         }`}
         >
             <span className="text-sm md:text-lg font-semibold">Our Pages</span>
@@ -133,6 +133,7 @@ const Nub = ({ selected }) => {
 
     useEffect(() => {
         moveNub();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selected]);
 
     const moveNub = () => {
@@ -170,17 +171,17 @@ const Pricing = () => {
 
     return (
         <div className="md:grid md:grid-cols-3 md:gap-4 md:divide-x md:divide-neutral-700">
-            <a href="#" className="md:flex md:w-full md:flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50" >
+            <a href="/" className="md:flex md:w-full md:flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50 hover:scale-105" >
                 <FiHome className="mb-2 text-xl text-indigo-300" />
-                <span className="text-xs">Home</span>
+                <span className="text-xs hover:border-b hover:border-green-600">Home</span>
             </a>
-            <a href="#" className="md:flex md:w-full md:flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50" >
+            <a href="/contact" className="md:flex md:w-full md:flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50 hover:scale-105" >
                 <FiBarChart2 className="mb-2 text-xl text-indigo-300" />
-                <span className="text-xs">Contact</span>
+                <span className="text-xs hover:border-b hover:border-green-600">Contact</span>
             </a>
-            <a href="#" className="md:flex md:w-full md:flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50" >
+            <a href="/faq" className="md:flex md:w-full md:flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50 hover:scale-105" >
                 <FiPieChart className="mb-2 text-xl text-indigo-300" />
-                <span className="text-xs">FAQ</span>
+                <span className="text-xs hover:border-b hover:border-green-600">FAQ</span>
             </a>
         </div>
     );

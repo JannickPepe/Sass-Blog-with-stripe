@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Genres.jsx", "components/nav/MenuItems.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Genres.jsx", "components/nav/MenuItems.jsx", "app/faq/page.jsx"],
   "exclude": ["node_modules"]
 }

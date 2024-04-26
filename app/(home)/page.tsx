@@ -24,7 +24,7 @@ export default async function Home() {
       <LoginFormHero />
 
       <div className="flex justify-center">
-        <IoIosArrowDropdownCircle className="h-5 w-5 lg:h-10 lg:w-10 animate-animation-ping"/>
+        <IoIosArrowDropdownCircle className="h-10 w-10 animate-animation-ping"/>
       </div>
 
       <h3 className="text-sm text-center font-semibold text-gray-400 pt-4 lg:pt-14">Our Whole Blog Catelog</h3>
