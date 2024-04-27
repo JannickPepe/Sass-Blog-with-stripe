@@ -12,7 +12,7 @@ export const About = () => {
   return (
     <div className="mt-16 mb-20">
 
-      <div className="flex mx-auto justify-center bg-green-600 hover:bg-[#8DECB4] max-w-[800px] rounded-md">
+      <div className="flex mx-auto justify-center bg-green-600 hover:bg-[#8DECB4] max-w-[800px] rounded-lg">
         <div onClick={() => setOpen(true)} className="rounded space-y-2 px-6 py-6 text-white hover:text-slate-700 transition-colors hover:cursor-pointer" >
           <h3 className="text-center text-3xl font-bold">Want To Know More <span className="border-b-2 border-slate-800">About Us?</span></h3>
           <div className="hover:scale-110 transition delay-200 duration-300">
@@ -22,7 +22,7 @@ export const About = () => {
       </div> 
 
       <DragCloseDrawer open={open} setOpen={setOpen}>
-        <div className="grid grid-cols-2 grid-rows-1 mx-auto space-y-4 text-neutral-400">
+        <div className="md:grid grid-cols-2 grid-rows-1 mx-auto space-y-4 text-neutral-400">
 
           <div className="grid-cols-1 px-4 lg:px-10">
             <h2 className="text-3xl font-bold text-neutral-200 py-4">
