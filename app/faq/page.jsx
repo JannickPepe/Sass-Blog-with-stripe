@@ -1,6 +1,8 @@
 import React from 'react'
 import FAQComponent from '../../components/faq/FAQ'
 import { FaQuestionCircle } from "react-icons/fa";
+import Link from 'next/link';
+import { MdContactMail } from "react-icons/md";
 
 
 export default function FAQ() {
@@ -26,6 +28,13 @@ export default function FAQ() {
                         <span className="pl-6 text-purple-500 group-hover:text-gray-100 transition duration-200">See whats new &rarr;</span>
                     </button>
                 </div>
+            </div>
+
+            <div className='flex justify-center items-center mt-10 lg:mt-16'>
+                <Link className='flex items-center gap-2 shadow-lg shadow-green-700 p-2 rounded-lg hover:shadow-none' href={'/contact'}>
+                    <MdContactMail size={20} />
+                    <p className='text-base font-semibold hover:border-b border-green-600'>Contact us instead</p>
+                </Link>
             </div>
         
         </div>

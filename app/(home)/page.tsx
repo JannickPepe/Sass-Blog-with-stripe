@@ -49,6 +49,7 @@ export default async function Home() {
       
       <h3 className="text-sm text-center font-semibold text-gray-400 mt-20">Discory Our Varity of Selections</h3>
       <h2 className="text-3xl font-bold text-center">Blog Categories</h2>
+      
       <Genres />
 
       <About />

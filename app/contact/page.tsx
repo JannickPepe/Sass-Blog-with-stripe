@@ -3,6 +3,8 @@
 import Lottie, {LottieRefCurrentProps} from 'lottie-react';
 import animationData from '../assets/Animationemail.json';
 import { useRef } from 'react';
+import { BsSendArrowUp } from "react-icons/bs";
+import SocialIcons from '../../components/contact/SocialIcons'
 
 
 export default function Contact() {
@@ -52,8 +54,8 @@ export default function Contact() {
                             </div>
 
                             <div>
-                                <button className="hover:shadow-form rounded-md bg-green-600 py-3 px-8 text-base font-semibold text-white outline-none" >
-                                    Submit
+                                <button className="hover:shadow-form rounded-md bg-green-600 py-2 px-8 text-base font-semibold text-white outline-none hover:bg-transparent transition delay-100 duration-300" >
+                                    <span className='flex items-center gap-1 hover:border-b hover:border-green-600 hover:scale-105'>Submit<BsSendArrowUp size={20} /></span>
                                 </button>
                             </div>
                         </form>
@@ -72,6 +74,15 @@ export default function Contact() {
                     loop={false}
                     animationData={animationData} 
                     />
+
+                    <div className="mx-auto text-center rounded-lg">
+                        <h3 className='text-lg font-semibold mb-2'>Get In Touch</h3>
+                        <nav>
+                            <ul className="mx-auto flex justify-center space-x-4 animation-stopped">
+                                <SocialIcons />
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
 
             </div>
